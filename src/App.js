@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import WriteExcel from './WriteExcel';
+import CalcForm from './CalcForm';
+import Calculator from './Calculator';
 
-function App() {
+const App = () => {
+  const [isWriting, setIsWriting] = useState(false);
+  const [data, setData] = useState([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+    {!isWriting ? 
+      <div><Calculator /></div>
+      : <WriteExcel data={data}/>}
+      <button onClick={() => setIsWriting(true)}>Write a file!</button>
+      </>
+  )
+};
 
 export default App;
