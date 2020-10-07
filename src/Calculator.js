@@ -1,40 +1,52 @@
 import React, {useEffect, useState} from 'react';
 
-const Calculator = props => {
+const Calculator = ({years, interest, loanAmount, paymentDate, setData}) => {
 
-    const [interest, setInterest] = useState(0.0432);
-    const [years, setYears] = useState(15);
-    const [amount, setAmount] = useState(265000);
     const [payment, setPayment] = useState(0);
-    const [days, setDays] = useState(0);
-    const [dee, setDee] = useState(0);
 
     useEffect(() => {
-        let date1 = new Date("07/1/2020");
-        let date2 = new Date("08/1/2020");
         let monthlyInterest = interest / 12;
         let monthlyYears = (years * 12);
-        
-        let d = ((((1 + monthlyInterest)*monthlyYears) - 1) / (monthlyInterest*(1+monthlyInterest)*monthlyYears));
-        setDee(d);
-
-        let differenceInTime = date2.getTime() - date1.getTime();
-        let differenceInDays = differenceInTime/(1000*3600*24);
-        setDays(differenceInDays);
-
         let x = Math.pow(1 + monthlyInterest, monthlyYears);
-        let monthlyPayment = ((amount*x*monthlyInterest)/(x-1));
+        let monthlyPayment = ((loanAmount*x*monthlyInterest)/(x-1));
         monthlyPayment = monthlyPayment.toFixed(2);
-
         setPayment(monthlyPayment);
+    }, [])
 
+    //this will fill data
+    useEffect(() => {
+        let newData = [];
+        let currPayDate = paymentDate;
+        let totalAmount = loanAmount;
+        for (let i = 1; i <= years*12; i++) {
+            //calculate days-between payments
+            //set new pay date as 1 month from currPayDate
 
-    }, [interest, years, amount])
+            // ((interest*.01)*payment)/365 = dailyInterest
+            //((3.5*0.01)*$98,741.00)/365 = dailyInterest
+            // dailyInterest*calculatedDays= monthlyInterest
+            // payment-monthlyInterest= principle
+            //loanAmount-principle = newLoanAmount
+            //totalAmount-= principle;
+            //newArr = [i, newPaymentDate, payment, monthlyInterest, principle, totalAmount];
+            //newData.push(newArr);
+            //
+            //final payment math figure it out
+            //
+            // if  payment > totalAmount then payment = totalAmount + interest;
+            // if totalAmount < 0 return false;
+            //calculate interest from payment
+            //subtract interest from payment to get principle
+            //subtract principle from total payment to get new total amount due
+            //record the results inside an array to be pushed to data later
+        }
+        //after for loop,
+        //setData(newData);
+    })
+
     return (
         <>
         <h1>${payment}</h1>
-        <h2>{days}</h2>
-        <h3>{dee}</h3>
         </>
     )
 }
