@@ -23,7 +23,8 @@ const Calculator = ({years, interest, loanAmount, paymentDate, setData, setDone}
     //this will fill data
     const fillData = () => {
         let newData = [["Payment", "Date", "Monthly Payment", "Interest", "principle", "Loan Balance"]];
-        let currPayDate = paymentDate;
+        let currPayDate = new Date (paymentDate);
+        currPayDate.setUTCMonth(currPayDate.getUTCMonth());
         let totalAmount = loanAmount;
         for (let i = 1; i <= years*12; i++) {
             //set new pay date as 1 month from currPayDate
@@ -36,11 +37,8 @@ const Calculator = ({years, interest, loanAmount, paymentDate, setData, setDone}
                 newPayDate.setMonth(oldPayDate.getMonth()+1);
                 newPayDate.setDate(1);
             }
-            // setDate(x)
-            console.log(newPayDate);
             //calculate days-between payments
             let calculatedDays = Math.round((newPayDate - oldPayDate) / (1000 * 3600 * 24));
-            console.log(calculatedDays);
             // ((interest*.01)*payment)/365 = dailyInterest
             let dailyInterest = ((interest*0.01)*totalAmount)/365;
             // dailyInterest*calculatedDays= monthlyInterest
