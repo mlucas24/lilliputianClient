@@ -8,9 +8,13 @@ const App = () => {
   const [interest, setInterest] = useState(0);
   const [years, setYears] = useState(0); 
   const [loanAmount, setLoanAmount] = useState(0);
-  const [fundingDate, setFundingDate] = useState("1/1/2020")
   const [paymentDate, setPaymentDate] = useState("1/1/2020")
   const [data, setData] = useState([]);
+
+  ///ToDo:
+  //Separate paymentDate into year, month, day
+  //setDate to day
+  //make sure everything is in UTC
   return (
     <div>
     {!isWriting ? 
@@ -18,12 +22,11 @@ const App = () => {
       <input type="number" placeholder="Enter Interest" onChange={(e)=> setInterest(e.target.value)}></input>
       <input type="number" placeholder="How Many Years?" onChange={(e)=> setYears(e.target.value)}></input>
       <input type="number" placeholder="Loan Amount" onChange={(e)=> setLoanAmount(e.target.value)}></input>
-      <input type="date" placeholder="Loan Funding Date" onChange={(e) => setFundingDate(e.target.value)}></input>
       <input type="date" placeholder="First Payment Date" onChange={(e) => setPaymentDate(e.target.value)}></input>
       <p></p>
       <button onClick={() => setIsWriting(true)}>Write a file!</button>
       </div>
-      : <Calculator years={years} loanAmount={loanAmount} interest={interest} setData={setData} fundingDate={fundingDate} paymentDate={paymentDate} setDone={setDone}/>} 
+      : <Calculator years={years} loanAmount={loanAmount} interest={interest} setData={setData} paymentDate={paymentDate} setDone={setDone}/>} 
       {!done ?
       <></>
     :
